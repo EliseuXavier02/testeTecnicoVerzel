@@ -1,0 +1,9 @@
+export const pedidoBase = { 
+    cliente:
+        { nome: 'Maria Silva', 
+            email: 'maria@exemplo.com', 
+            cep: '01310-100'
+        },
+         itens: [{ produtoId: 'P005', quantidade: 5 }]
+        
+}
