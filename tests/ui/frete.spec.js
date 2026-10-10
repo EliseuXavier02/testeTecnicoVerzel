@@ -16,16 +16,21 @@ test.describe('CT-008 - Validar frete grátis a partir de R$ 200,00', () => {
       await produtosPage.adicionarProduto(produtos.mochila.id)
     })
 
- await test.step('Abrir o carrinho e validar o subtotal', async () => {
-    await carrinhoPage.abrirCarrinho()
+    await test.step('Abrir o carrinho e validar o subtotal', async () => {
+      await carrinhoPage.abrirCarrinho()
 
-    await expect(carrinhoPage.subtotal()).toHaveText('R$ 200,00')
-  })
+      await expect(carrinhoPage.subtotal()).toHaveText('R$ 200,00')
+    })
 
-  await test.step('Validar que o frete é grátis no limite de R$ 200,00', async () => {
-    await expect(carrinhoPage.frete()).toHaveText('Grátis')
+    await test.step('Validar frete grátis para subtotal de R$ 200,00', async () => {
+      const freteRecebido = await carrinhoPage.frete().innerText()
+
+      expect(
+        freteRecebido,
+        `Esperado frete de R$ 0,00 para subtotal de R$ 200,00, recebido ${freteRecebido}.`
+      ).toBe('R$ 0,00')
+    })
   })
-})
 
   test('deve oferecer frete grátis para subtotal acima de R$ 200,00', async ({ page }) => {
     const produtosPage = new ProdutosPage(page)
